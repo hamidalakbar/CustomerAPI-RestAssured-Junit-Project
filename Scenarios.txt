@@ -42,7 +42,7 @@ Scenario: Adding customer with missing name info
 	And only customer age is included in request body/payload
 	When POST request is sent to add a customer
 	Then response status code should be 400
-	And response body should contain "Bad request" message
+	And response body should contain "Bad Request" message
 
 Scenario: Adding customer with missing age info
 	Given authorization token is included in request header
@@ -51,7 +51,7 @@ Scenario: Adding customer with missing age info
 	And only customer name is included in request body/payload
 	When POST request is sent to add a customer
 	Then response status code should be 400
-	And response body should contain "Bad request" message
+	And response body should contain "Bad Request" message
 
 Scenario: Adding customer without provided authorization token
 	Given content type header is application/json
@@ -76,13 +76,14 @@ Scenario: Deleting customer without authorization
 	Given customer id provided as path param
 	When DELETE request is sent to remove customer
 	Then response status code should be 401
+	And response body should contain "Unauthorized" message
 
 Scenario: Deleting customer without providing id
 	Given authorization token is included in request header
 	When DELETE request is sent to remove customer
 	Then response status code should be 404
+	And response body should contain "Not Found" message
 
-PS: Assuming that based on API documentation, DELETE requests do not return response body
 =============================================================================================
 
 AC4: As an API user I need to be able to change/update the name or age.

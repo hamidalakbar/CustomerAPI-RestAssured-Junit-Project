@@ -55,7 +55,7 @@ public class AddCustomer extends CustomerTestBase {
                 .post("/api/customers") // When POST request is sent to add a customer
                 .then().log().ifValidationFails()
                 .statusCode(HttpStatus.SC_BAD_REQUEST) // Then response status code should be 400
-                .body("message", equalTo("Bad request")); // And response body should contain "Bad request" message
+                .body("message", equalTo("Bad Request")); // And response body should contain "Bad Request" message
     }
 
     @DisplayName("POST new customer without age: api/customers")
@@ -75,7 +75,7 @@ public class AddCustomer extends CustomerTestBase {
                 .post("/api/customers") // When POST request is sent to add a customer
                 .then().log().ifValidationFails()
                 .statusCode(HttpStatus.SC_BAD_REQUEST) // Then response status code should be 400
-                .body("message", equalTo("Bad request")); // And response body should contain "Bad request" message
+                .body("message", equalTo("Bad Request")); // And response body should contain "Bad Request" message
     }
 
     @DisplayName("POST new customer without authorization: api/customers")
