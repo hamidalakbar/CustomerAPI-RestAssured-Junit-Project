@@ -110,15 +110,15 @@ Scenario: Changing/Updating customer info without authorization
 	And updated customer info included in request body/payload
 	When PUT request is sent to change/update name of customer
 	Then response status code should be 401
+	And response body should contain "Unauthorized" message
 
-Scenario: CHanging/Updating customer info without providing info
+Scenario: Changing/Updating customer info without providing data
 	Given authorization token is included in request header
 	And content type header is application/json
 	And customer id provided as path param
 	When PUT request is sent to change/update with empty request body/payload
 	Then response status code should be 400
-
-PS: Assuming that based on API documentation, DELETE requests do not return response body
+	And response body should contain "Bad Request message"
 
 
 
