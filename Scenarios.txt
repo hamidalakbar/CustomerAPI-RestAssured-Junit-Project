@@ -39,7 +39,7 @@ Scenario: Adding customer with missing name info
 	Given authorization token is included in request header
 	And content type header is application/json
 	And accept type header is application/json
-	And only customer age is included in reqeust body/payload
+	And only customer age is included in request body/payload
 	When POST request is sent to add a customer
 	Then response status code should be 400
 	And response body should contain "Bad request" message

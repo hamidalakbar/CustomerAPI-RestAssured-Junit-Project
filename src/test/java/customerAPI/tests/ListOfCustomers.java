@@ -45,7 +45,7 @@ public class ListOfCustomers extends CustomerTestBase {
                 .body("message", equalTo("Customer list is empty"));
     }
 
-    @DisplayName("GET without authorization")
+    @DisplayName("GET all customers without authorization: api/customers")
     @Test
     public void getAllCustomersWithoutAuth() {
 
