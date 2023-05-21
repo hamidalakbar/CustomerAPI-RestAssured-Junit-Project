@@ -1,0 +1,124 @@
+AC1: As an API user I need to be able to see the list of all customers.
+
+Scenario: Sending valid request to get all customers
+    Given authorization token is included in request header
+	And accept type header is application/json
+	When GET request is sent to retrieve list of all customers
+	Then response status code should be 200
+	And response content type should be application/json
+	And response body should contain ID, Name, Age (Years and Months) of all customers
+
+Scenario: Getting empty customer list from DB
+    Given authorization token is included in request header
+	And accept type header is application/json
+	When GET request is sent to retrieve list of all customers
+	Then response status code should be 200
+	And response content type should be application/json
+	And response body should contain "Customer list is empty" message
+
+Scenario: Getting all customers without provided authorization token
+	Given accept type is application/json
+	When GET request is sent to retrieve list of all customers
+	Then response status code should be 401
+	And response body should contain "Unauthorized" message
+=============================================================================================
+
+AC2: As an API user I need to be able to add a customer.
+
+Scenario: Adding customer with required info
+	Given authorization token is included in request header
+	And content type header is application/json
+	And accept type header is application/json
+	And customer info included in request body/payload
+	When POST request is sent to add a customer
+	Then response status code should be 201
+	And response content type should be application/json
+	And response body should contain ID, Name, Age (Years and Months) of customer
+
+Scenario: Adding customer with missing name info
+	Given authorization token is included in request header
+	And content type header is application/json
+	And accept type header is application/json
+	And only customer age is included in reqeust body/payload
+	When POST request is sent to add a customer
+	Then response status code should be 400
+	And response body should contain "Bad request" message
+
+Scenario: Adding customer with missing age info
+	Given authorization token is included in request header
+	And content type header is application/json
+	And accept type header is application/json
+	And only customer name is included in request body/payload
+	When POST request is sent to add a customer
+	Then response status code should be 400
+	And response body should contain "Bad request" message
+
+Scenario: Adding customer without provided authorization token
+	Given content type header is application/json
+	And accept type header is application/json
+	And customer info included in request body/payload
+	When POST request is sent to add a customer
+	Then response status code should be 401
+	And response content type should be application/json
+	And response body should contain "Unauthorized" message
+
+=============================================================================================
+
+AC3: As an API user I need to be able to delete a customer.
+	
+Scenario: Delete customer
+	Given authorization token is included in request header
+	And customer id provided as path param
+	When DELETE request is sent to remove customer
+	Then response status code should be 204
+
+Scenario: Deleting customer without authorization
+	Given customer id provided as path param
+	When DELETE request is sent to remove customer
+	Then response status code should be 401
+
+Scenario: Deleting customer without providing id
+	Given authorization token is included in request header
+	When DELETE request is sent to remove customer
+	Then response status code should be 404
+
+PS: Assuming that based on API documentation, DELETE requests do not return response body
+=============================================================================================
+
+AC4: As an API user I need to be able to change/update the name or age.
+
+Scenario: Changing/Updating customer name
+	Given authorization token is included in request header
+	And content type header is application/json
+	And customer id provided as path param
+	And customer info with updated name included in request body/payload
+	When PUT request is sent to change/update name of customer
+	Then response status code should be 204
+
+Scenario: Changing/Updating customer age
+	Given authorization token is included in request header
+	And content type header is application/json
+	And customer id provided as path param
+	And customer info with updated age included in request body/payload
+	When PUT request is sent to change/update age of customer
+	Then response status code should be 204
+
+Scenario: Changing/Updating customer info without authorization
+	Given content type header is application/json
+	And customer id provided as path param
+	And updated customer info included in request body/payload
+	When PUT request is sent to change/update name of customer
+	Then response status code should be 401
+
+Scenario: CHanging/Updating customer info without providing info
+	Given authorization token is included in request header
+	And content type header is application/json
+	And customer id provided as path param
+	When PUT request is sent to change/update with empty request body/payload
+	Then response status code should be 400
+
+PS: Assuming that based on API documentation, DELETE requests do not return response body
+
+
+
+
