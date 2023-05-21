@@ -1,7 +1,7 @@
 AC1: As an API user I need to be able to see the list of all customers.
 
 Scenario: Sending valid request to get all customers
-    Given authorization token is included in request header
+    	Given authorization token is included in request header
 	And accept type header is application/json
 	When GET request is sent to retrieve list of all customers
 	Then response status code should be 200
@@ -9,7 +9,7 @@ Scenario: Sending valid request to get all customers
 	And response body should contain ID, Name, Age (Years and Months) of all customers
 
 Scenario: Getting empty customer list from DB
-    Given authorization token is included in request header
+   	Given authorization token is included in request header
 	And accept type header is application/json
 	When GET request is sent to retrieve list of all customers
 	Then response status code should be 200
